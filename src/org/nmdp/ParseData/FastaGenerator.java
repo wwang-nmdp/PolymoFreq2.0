@@ -118,7 +118,7 @@ public class FastaGenerator {
 			DatabaseUtil.insertSeqData(data1);
 		} catch (SQLException e) {
 				
-				System.out.printf("Cant insert duplicate data, sample id is %s, gls is %s  in file %s \n", data1.getSampleId(), data1.getGls(), input.getName());
+				System.out.printf("Cant insert duplicate geneData, sample id is %s, gls is %s  in file %s \n", data1.getSampleId(), data1.getGls(), input.getName());
 			}
 		
 	    
@@ -136,7 +136,7 @@ public class FastaGenerator {
 	    try {
 			DatabaseUtil.insertSeqData(data2);
 		} catch (SQLException e) {
-			System.out.printf("Cant insert duplicate data, sample id is %s, gls is %s  in file %s \n", data1.getSampleId(), data1.getGls(), input.getName());
+			System.out.printf("Cant insert duplicate geneData, sample id is %s, gls is %s  in file %s \n", data1.getSampleId(), data1.getGls(), input.getName());
 		}
 	   
 

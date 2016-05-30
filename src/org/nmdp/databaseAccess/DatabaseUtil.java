@@ -3,6 +3,7 @@ import java.sql.*;
 
 import org.nmdp.HLAGene.ExonIntronData;
 import org.nmdp.ParseData.SequenceData;
+import org.nmdp.ParseExon.SectionName;
 
 public class DatabaseUtil
 {
@@ -85,7 +86,6 @@ public class DatabaseUtil
 			Statement stmt = connection.createStatement();
 			String sql = "CREATE TABLE IF NOT EXISTS " + EXON_TABLE_NAME + "("
 					+ ID +" INTEGER PRIMARY KEY AUTOINCREMENT,"
-					+ HLA_TABLE_NAME + " INTEGER NOT NULL,"
 					+ SAMPLE_ID+" CHAR(50) NOT NULL,"
 					+GLS+" TEXT NOT NULL,"
 				+PHASE_SET+" CHAR(10) NOT NULL,"
@@ -113,8 +113,8 @@ public class DatabaseUtil
 				+EXON5_PL+ " TEXT NOT NULL,"
 				+EXON6_PL+ " TEXT NOT NULL,"
 				+EXON7_PL+ " TEXT NOT NULL,"
-				+EXON8_PL+ " TEXT NOT NULL,"
-					+"UNIQUE ("+SAMPLE_ID+ ","+GLS+","+ PHASE_SET+" )"
+				+EXON8_PL+ " TEXT NOT NULL"
+				//	+"UNIQUE ("+SAMPLE_ID+ ","+GLS+","+ PHASE_SET+" )"
 					+");";
 			stmt.executeUpdate(sql);
 			stmt.close();
@@ -156,7 +156,6 @@ public class DatabaseUtil
 		StringBuilder sb = new StringBuilder();
 		sb.append("INSERT INTO "+ EXON_TABLE_NAME);
 		sb.append("(");
-		sb.append(HLA_TABLE_NAME + ",");
 		sb.append(SAMPLE_ID + ",");
 		sb.append(GLS + ",");
 		sb.append(PHASE_SET + ",");
@@ -187,36 +186,34 @@ public class DatabaseUtil
 		sb.append(EXON8_PL + ")");
 		
 		sb.append("VALUES (");
-		sb.append(data.getID() + ",");
 		sb.append(wrapString(data.getSampleID()) + ",");
-		
 		sb.append(wrapString(data.getGls()) + ",");
 		sb.append(wrapString(data.getPhase()) + ",");
-		sb.append(wrapString(data.getFive_NS()) + ",");
-		sb.append(wrapString(data.getExon1()) + ",");
-		sb.append(wrapString(data.getIntron1()) + ",");
-		sb.append(wrapString(data.getExon2()) + ",");
-		sb.append( wrapString(data.getIntron2()) + ",");
-		sb.append(wrapString(data.getExon3()) + ",");
-		sb.append(wrapString(data.getIntron3()) + ",");
-		sb.append(wrapString(data.getExon4()) + ",");
-		sb.append(wrapString(data.getIntron4()) + ",");
-		sb.append(wrapString(data.getExon5()) + ",");
-		sb.append(wrapString(data.getIntron5()) + ",");
-		sb.append(wrapString(data.getExon6()) + ",");
-		sb.append(wrapString(data.getIntron6()) + ",");
-		sb.append(wrapString(data.getExon7()) + ",");
-		sb.append(wrapString(data.getIntron7()) + ",");
-		sb.append(wrapString(data.getExon8()) + ",");
-		sb.append(wrapString(data.getThree_NS())+ ",");
-		sb.append(wrapString(data.getExon1_pl())+ ",");
-		sb.append(wrapString(data.getExon2_pl())+ ",");
-		sb.append(wrapString(data.getExon3_pl())+ ",");
-		sb.append(wrapString(data.getExon4_pl())+ ",");
-		sb.append(wrapString(data.getExon5_pl())+ ",");
-		sb.append(wrapString(data.getExon6_pl())+ ",");
-		sb.append(wrapString(data.getExon7_pl())+ ",");
-		sb.append(wrapString(data.getExon8_pl()));
+		sb.append(wrapString(data.getIntron(SectionName.US)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e1)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.i1)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e2)) + ",");
+		sb.append( wrapString(data.getIntron(SectionName.i2)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e3)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.i3)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e4)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.i4)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e5)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.i5)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e6)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.i6)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e7)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.i7)) + ",");
+		sb.append(wrapString(data.getExon(SectionName.e8)) + ",");
+		sb.append(wrapString(data.getIntron(SectionName.DS))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e1))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e2))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e3))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e4))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e5))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e6))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e7))+ ",");
+		sb.append(wrapString(data.getExon_pl(SectionName.e8)));
 		sb.append(");");
 		stmt.executeUpdate(sb.toString());
 		stmt.close();

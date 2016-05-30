@@ -37,7 +37,7 @@ public class BaseFreq {
 	}
 //Calculate the base frequency from frequency table
 	
-	public String getDiff(GeneSection type, int position, char c){
+	public String getDiff(SectionName type, int position, char c){
 		String check = getFreq(getCount(c));
 		if(Double.parseDouble(check) == 0){
 			return "";

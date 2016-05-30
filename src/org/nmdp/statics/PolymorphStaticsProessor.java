@@ -14,23 +14,19 @@ public class PolymorphStaticsProessor {
 	private static List<Integer> indexExon;
 	private static List<Integer> indexIntron;
 	private static PrintWriter pw;
-	private static GeneType geneType;
 	private static int[] adjustPositon;
 	private static final char DIVIDER = '-';
 	private static String processingData;
 	
-	public static void processPolyMoph(GeneType gt, ArrayList<BaseFreq> freq, ArrayList<ExonIntronData> list,List<Integer> indexExon, List<Integer> indexIntron, PrintWriter pw){
+	public static void processPolyMoph(ArrayList<BaseFreq> freq, ArrayList<ExonIntronData> list,List<Integer> indexExon, List<Integer> indexIntron, PrintWriter pw){
 		PolymorphStaticsProessor.freq = freq;
 		PolymorphStaticsProessor.list = list;
 		PolymorphStaticsProessor.indexExon = indexExon;
 		PolymorphStaticsProessor.indexIntron = indexIntron;
 		PolymorphStaticsProessor.pw = pw;
-		geneType = gt;
 		for(ExonIntronData data: list){
 			processingData = data.getFullLength();
 			countDivider(indexExon, data);
-			pw.print(data.getID());
-			pw.print(",");
 			pw.print(data.getCDS());
 			pw.print(",");
 			findPolymorphism(data);
@@ -40,45 +36,45 @@ public class PolymorphStaticsProessor {
 	}
 	
 	 static void findPolymorphism(ExonIntronData data) {
-		 switch(geneType){
-		 case HLA_B:
-			 processSection(GeneSection.US, Math.max(200, indexIntron.get(0)), indexIntron.get(1), data);
-				processSection(GeneSection.e1, indexExon.get(0), indexExon.get(1), data);
-				processSection(GeneSection.i1, indexIntron.get(2), indexIntron.get(3),data);
-				processSection(GeneSection.e2, indexExon.get(2), indexExon.get(3), data);
-				processSection(GeneSection.i2, indexIntron.get(4), indexIntron.get(5),data);
-				processSection(GeneSection.e3, indexExon.get(4), indexExon.get(5), data);
-				processSection(GeneSection.i3, indexIntron.get(6), indexIntron.get(7),data);
-				processSection(GeneSection.e4, indexExon.get(6), indexExon.get(7), data);
-				processSection(GeneSection.i4, indexIntron.get(8), indexIntron.get(9),data);
-				processSection(GeneSection.e5, indexExon.get(8), indexExon.get(9), data);
-				processSection(GeneSection.i5, indexIntron.get(10), indexIntron.get(11),data);
-				processSection(GeneSection.e6, indexExon.get(10), indexExon.get(11), data);
-				processSection(GeneSection.i6, indexIntron.get(12), indexIntron.get(13),data);
-				processSection(GeneSection.e7, indexExon.get(12), indexExon.get(13), data);
-				processSection(GeneSection.DS, indexIntron.get(14), indexIntron.get(15),data);
-				break;
-		 case HLA_AC:
-			 processSection(GeneSection.US, Math.max(200, indexIntron.get(0)), indexIntron.get(1), data);
-				processSection(GeneSection.e1, indexExon.get(0), indexExon.get(1), data);
-				processSection(GeneSection.i1, indexIntron.get(2), indexIntron.get(3),data);
-				processSection(GeneSection.e2, indexExon.get(2), indexExon.get(3), data);
-				processSection(GeneSection.i2, indexIntron.get(4), indexIntron.get(5),data);
-				processSection(GeneSection.e3, indexExon.get(4), indexExon.get(5), data);
-				processSection(GeneSection.i3, indexIntron.get(6), indexIntron.get(7),data);
-				processSection(GeneSection.e4, indexExon.get(6), indexExon.get(7), data);
-				processSection(GeneSection.i4, indexIntron.get(8), indexIntron.get(9),data);
-				processSection(GeneSection.e5, indexExon.get(8), indexExon.get(9), data);
-				processSection(GeneSection.i5, indexIntron.get(10), indexIntron.get(11),data);
-				processSection(GeneSection.e6, indexExon.get(10), indexExon.get(11), data);
-				processSection(GeneSection.i6, indexIntron.get(12), indexIntron.get(13),data);
-				processSection(GeneSection.e7, indexExon.get(12), indexExon.get(13), data);
-				processSection(GeneSection.i7, indexIntron.get(14), indexIntron.get(15),data);
-				processSection(GeneSection.e8, indexExon.get(14), indexExon.get(15), data);
-				processSection(GeneSection.DS, indexIntron.get(16), indexIntron.get(17),data);
-			 break;
-		 
-		 }
+//		 switch(geneType){
+//		 case HLA_B:
+//			 processSection(SectionName.US, Math.max(200, indexIntron.get(0)), indexIntron.get(1), data);
+//				processSection(SectionName.e1, indexExon.get(0), indexExon.get(1), data);
+//				processSection(SectionName.i1, indexIntron.get(2), indexIntron.get(3),data);
+//				processSection(SectionName.e2, indexExon.get(2), indexExon.get(3), data);
+//				processSection(SectionName.i2, indexIntron.get(4), indexIntron.get(5),data);
+//				processSection(SectionName.e3, indexExon.get(4), indexExon.get(5), data);
+//				processSection(SectionName.i3, indexIntron.get(6), indexIntron.get(7),data);
+//				processSection(SectionName.e4, indexExon.get(6), indexExon.get(7), data);
+//				processSection(SectionName.i4, indexIntron.get(8), indexIntron.get(9),data);
+//				processSection(SectionName.e5, indexExon.get(8), indexExon.get(9), data);
+//				processSection(SectionName.i5, indexIntron.get(10), indexIntron.get(11),data);
+//				processSection(SectionName.e6, indexExon.get(10), indexExon.get(11), data);
+//				processSection(SectionName.i6, indexIntron.get(12), indexIntron.get(13),data);
+//				processSection(SectionName.e7, indexExon.get(12), indexExon.get(13), data);
+//				processSection(SectionName.DS, indexIntron.get(14), indexIntron.get(15),data);
+//				break;
+//		 case HLA_AC:
+//			 processSection(SectionName.US, Math.max(200, indexIntron.get(0)), indexIntron.get(1), data);
+//				processSection(SectionName.e1, indexExon.get(0), indexExon.get(1), data);
+//				processSection(SectionName.i1, indexIntron.get(2), indexIntron.get(3),data);
+//				processSection(SectionName.e2, indexExon.get(2), indexExon.get(3), data);
+//				processSection(SectionName.i2, indexIntron.get(4), indexIntron.get(5),data);
+//				processSection(SectionName.e3, indexExon.get(4), indexExon.get(5), data);
+//				processSection(SectionName.i3, indexIntron.get(6), indexIntron.get(7),data);
+//				processSection(SectionName.e4, indexExon.get(6), indexExon.get(7), data);
+//				processSection(SectionName.i4, indexIntron.get(8), indexIntron.get(9),data);
+//				processSection(SectionName.e5, indexExon.get(8), indexExon.get(9), data);
+//				processSection(SectionName.i5, indexIntron.get(10), indexIntron.get(11),data);
+//				processSection(SectionName.e6, indexExon.get(10), indexExon.get(11), data);
+//				processSection(SectionName.i6, indexIntron.get(12), indexIntron.get(13),data);
+//				processSection(SectionName.e7, indexExon.get(12), indexExon.get(13), data);
+//				processSection(SectionName.i7, indexIntron.get(14), indexIntron.get(15),data);
+//				processSection(SectionName.e8, indexExon.get(14), indexExon.get(15), data);
+//				processSection(SectionName.DS, indexIntron.get(16), indexIntron.get(17),data);
+//			 break;
+//
+//		 }
 		 
 	 }
 	 
@@ -105,9 +101,9 @@ public class PolymorphStaticsProessor {
 		 * @param type us, ds, e1, i1,
 		 * @param start start point, start with zero
 		 * @param end end point
-		 * @param data data processed
+		 * @param data geneData processed
 		 */
-		public static void processSection(GeneSection type, int start, Integer end, ExonIntronData data) {	
+		public static void processSection(SectionName type, int start, Integer end, ExonIntronData data) {
 			for(int i = start; i<= end; i++){
 				if(i<freq.size() && freq.get(i).isValid() && processingData.charAt(i) != DIVIDER){
 					char orignal = data.getFullLength().charAt(i);

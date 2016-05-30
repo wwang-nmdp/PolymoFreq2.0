@@ -12,11 +12,10 @@ import org.nmdp.databaseAccess.DatabaseUtil;
 import org.nmdp.statics.PolymorphStaticsProessor;
 
 public class    ParseExon{
-private GeneType type;
 private Scanner scannerAlign;
 private Scanner scannerFreq;
 //cut the first 100 positions because of the low coverage.
-private int looper = 100;
+private int looper = 50;
 private String refSeq;
 private ArrayList<Integer> indexIntron = new ArrayList<Integer>();
 private ArrayList<Integer> indexExon = new ArrayList<Integer>();
@@ -32,19 +31,20 @@ private static final char DIVIDER = '-';
  * Input files contains one alignment and frequency table and genetype.
  * @param align alignment result from Clustal_Omega output in .Clu format.
  * @param freq 
- * @param type
+ * @param start
+ * @param end
  * @throws Exception
  */
-	public void run(File align, File freq, GeneType type) throws Exception{
+	public void run(File align, File freq, SectionName start, SectionName end) throws Exception{
 		inputAlign = align;
 		inputFreq = freq;
-		this.type = type;
 		
 		setPrinter();
+		HLAGeneData.setType(start, end);
 		countExonIndex();
 		extratExons();
-		extraFreq();
-		PolymorphStaticsProessor.processPolyMoph(type, freqList, seqList, indexExon, indexIntron, pw);
+		//extraFreq();
+		//PolymorphStaticsProessor.processPolyMoph(freqList, seqList, indexExon, indexIntron, pw);
 	}
 	private void extraFreq() {
 		try {
@@ -91,7 +91,7 @@ private static final char DIVIDER = '-';
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		//Skip four lines to first row of data
+		//Skip four lines to first row of geneData
 		scannerAlign.nextLine();
 		scannerAlign.nextLine();
 		scannerAlign.nextLine();
@@ -108,15 +108,15 @@ private static final char DIVIDER = '-';
 	}
 	private void processSample(String data) throws Exception {
 		if(data.charAt(0) == ' '){
-			//If the data is the last line, do not process
+			//If the geneData is the last line, do not process
 			return;
 		}
-		//split the data by white space or |
+		//split the geneData by white space or |
 		String[] split = data.split(" |\\|");
-		ExonIntronData ei = ExonIntronData.buildHLA(type, split[0]);
-		ei.setSampleId(split[1]);
-		ei.setGls(split[2]);
-		ei.setPhase(split[3]);
+		ExonIntronData ei = new HLAGeneData();
+		ei.setSampleId(split[0]);
+		ei.setGls(split[1]);
+		ei.setPhase(split[2]);
 		ei.setExonIntron(data, indexExon, indexIntron);
 		ei.setFullLength(data);
 		seqList.add(ei);
